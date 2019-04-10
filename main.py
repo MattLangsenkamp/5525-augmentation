@@ -13,6 +13,7 @@ if __name__ == "__main__":
 
     # develop word vectors
     word_vectors = wv.get_word_vectors(orig_corpus)
+    vis.visualize_vectors(word_vectors)
 
     # augment corpi
     corpus_method_1, y_train_method_1 = am.method_1(orig_corpus.copy(), y_train_orig.copy(), word_vectors)
