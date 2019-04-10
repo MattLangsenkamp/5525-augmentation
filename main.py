@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
     # visualize and export results 
     vis.acc_bar_plot([acc_orig, acc_method_1, acc_method_2, acc_method_3], 
-                        ['Original, Method 1', 'Method 2', 'Method 3'])
+                        ['Original', 'Method 1', 'Method 2', 'Method 3'])
     vis.visualize_confusion_matrix(acc_method_1, 'Original')
     vis.visualize_confusion_matrix(acc_method_1, 'Method 1')
     vis.visualize_confusion_matrix(acc_method_1, 'Method 2')
