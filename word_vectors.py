@@ -6,9 +6,9 @@ import multiprocessing
 def get_word_vectors(corpus):
 
     num_features = 300
-    min_word_count = 1
+    min_word_count = 10
     num_workers = multiprocessing.cpu_count()
-    context_size = 5
+    context_size = 7
     downsampling = 1e-5
     seed = 1
 
@@ -27,21 +27,4 @@ def get_word_vectors(corpus):
 
     return vecs
 
-test_corpus = [
-        ['I', 'like', 'donuts','.'],
-        ['I', 'like', 'bagels','.'],
-        ['I', 'like', 'candy','.'],
-        ['I', 'like', 'bacon','.'],
-        ['I', 'like', 'salmon','.'],
-        ['I', 'love', 'donuts','.'],
-        ['I', 'love', 'bagels', '.'],
-        ['I', 'love', 'candy', '.'],
-        ['I', 'love', 'bacon', '.'],
-        ['I', 'love', 'salmon', '.'],
-        ['I', 'hate', 'broccoli', '.'],
-        ['broccoli', 'is', 'bad', '.'],
-        ['broccoli', 'is', 'not', 'cool', '.'],
-        ['broccoli', 'is', 'smelly', 'i', 'hate', 'it', '.']
-        ]
 
-wv = get_word_vectors(test_corpus)

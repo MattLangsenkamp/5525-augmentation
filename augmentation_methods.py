@@ -10,9 +10,9 @@ def method_1(corpus, y, word_vectors):
     for i in range(len(corpus)):
         sample = corpus[i]
         new_sample = sample.copy()
-        indices = pick_word_indices(sample)
+        indices = pick_word_indices(sample, word_vectors)
         for index in indices:
-            new_sample[index] = word_vectors.most_similar(sample[index])
+            new_sample[index] = word_vectors.most_similar(sample[index])[0][0]
             
         augmented_data.append(sample)
         augmented_y.append(y[i])
@@ -29,7 +29,7 @@ def method_2(corpus, y, word_vectors):
     augmented_y = []
     for i in range(len(corpus)):
         sample = corpus[i].copy()
-        indices = pick_word_indices(sample)
+        indices = pick_word_indices(sample, word_vectors)
         for index in indices:
             new_sample = list(chain(sample[:index], [word_vectors.most_similar(sample[index])], sample[index + 1:]))
         augmented_data.append(new_sample)
@@ -45,9 +45,9 @@ def method_3(corpus, y, word_vectors):
     for i in range(len(corpus)):
         sample = corpus[i]
         new_sample = sample.copy()
-        indices = pick_word_indices_verb_or_adjective(sample)
+        indices = pick_word_indices_verb_or_adjective(sample, word_vectors)
         for index in indices:
-            new_sample[index] = word_vectors.most_similar(sample[index])
+            new_sample[index] = word_vectors.most_similar(sample[index])[0][0]
         
         augmented_data.append(sample)
         augmented_y.append(y[i])
@@ -59,18 +59,23 @@ def method_3(corpus, y, word_vectors):
     return augmented_data, augmented_y
 
 
-def pick_word_indices(sample):
-    #r.seed(1)
-    amount_words_swapped = r.randint(0, max(len(sample)-1, 0))
-    return sorted(r.sample(list(range(len(sample))), amount_words_swapped))
+def pick_word_indices(sample, word_vectors):
+    
+    valid_indices = []
+    for i in range(len(sample)):
+        if sample[i] in word_vectors.wv.vocab:
+            valid_indices.append(i)
+    
+    amount_words_swapped = r.randint(0, max(len(valid_indices)-1, 0))
+    return r.sample(valid_indices, amount_words_swapped)
 
-def pick_word_indices_verb_or_adjective(sample):
+def pick_word_indices_verb_or_adjective(sample, word_vectors):
     
     tags = nltk.pos_tag(sample)
     valid_indices = []
     for i in range(len(tags)):
-        if 'VB' in tags[i][1] or 'JJ' in tags[i][1]:
+        if ('VB' in tags[i][1] or 'NN' in tags[i][1]) and tags[i][0] in word_vectors.wv.vocab:
             valid_indices.append(i)
 
     amount_words_swapped = r.randint(0, max(len(valid_indices)-1, 0))
-    return sorted(r.sample(valid_indices, amount_words_swapped))
+    return r.sample(valid_indices, amount_words_swapped)
