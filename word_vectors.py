@@ -6,7 +6,7 @@ import multiprocessing
 def get_word_vectors(corpus):
 
     num_features = 300
-    min_word_count = 10
+    min_word_count = 70
     num_workers = multiprocessing.cpu_count()
     context_size = 7
     downsampling = 1e-5

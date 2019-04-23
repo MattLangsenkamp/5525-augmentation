@@ -66,8 +66,11 @@ def pick_word_indices(sample, word_vectors):
         if sample[i] in word_vectors.wv.vocab:
             valid_indices.append(i)
     
-    amount_words_swapped = r.randint(0, max(len(valid_indices)-1, 0))
-    return r.sample(valid_indices, amount_words_swapped)
+    if len(valid_indices)>0:
+        amount_words_swapped = r.randint(1, max(len(valid_indices)-1, 1))
+        return r.sample(valid_indices, amount_words_swapped)
+    else:
+        return []
 
 def pick_word_indices_verb_or_adjective(sample, word_vectors):
     
@@ -77,5 +80,8 @@ def pick_word_indices_verb_or_adjective(sample, word_vectors):
         if ('VB' in tags[i][1] or 'NN' in tags[i][1]) and tags[i][0] in word_vectors.wv.vocab:
             valid_indices.append(i)
 
-    amount_words_swapped = r.randint(0, max(len(valid_indices)-1, 0))
-    return r.sample(valid_indices, amount_words_swapped)
+    if len(valid_indices)>0:
+        amount_words_swapped = r.randint(1, max(len(valid_indices)-1, 1))
+        return r.sample(valid_indices, amount_words_swapped)
+    else:
+        return []

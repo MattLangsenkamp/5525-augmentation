@@ -4,10 +4,7 @@ from sklearn.manifold import TSNE
 import pandas as pd
 import seaborn as sns
 
-def visualize_confusion_matrix(conf_mat, classes,
-                          title=None,
-                          cmap=plt.cm.Blues):
-
+def visualize_confusion_matrix(conf_mat, title, cmap=plt.cm.Blues):
     
     labels_less = ['atheism', 'graphics', 'ms-windows.misc',
               'pc.hardware', 'mac.hardware', 'windows.x',
@@ -29,18 +26,20 @@ def visualize_confusion_matrix(conf_mat, classes,
     plt.show()
 
 
-def acc_bar_plot(acc_list, labels):
+def acc_bar_plot(acc_list, labels, title):
 
     plt.set_cmap(plt.cm.Blues)    
 
     fig = plt.figure(figsize=(10.0, 9.0))
     ax = fig.add_subplot(111)
 
+    ax.yaxis.set_ticks([.1,.2,.3,.4,.5,.6,.7,.8,.9,1])
     ax.xaxis.set_major_formatter(FuncFormatter(format_fn))
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     ax.bar(range(len(acc_list)), acc_list)
     plt.xlabel('Method')
     plt.ylabel('Accuracy')
+    plt.title(title)
     plt.savefig('bar.png', bbox_inches = 'tight')
     plt.show()
 
@@ -63,6 +62,7 @@ def visualize_vectors(vectors):
     )
     sns.set_context("poster")
     points.plot.scatter("x", "y", s=10, figsize=(20, 12))
+    plt.savefig('all_vectors.png')
     return points
     
 def plot_region(x_bounds, y_bounds, points):
@@ -79,7 +79,6 @@ def plot_region(x_bounds, y_bounds, points):
 
 def format_fn(tick_val, tick_pos):
     labels = ['Original', 'Method 1', 'Method 2', 'Method 3']
-    print(tick_val)
     if int(tick_val) in [0,1,2,3]:
         return labels[int(tick_val)]
     else:
