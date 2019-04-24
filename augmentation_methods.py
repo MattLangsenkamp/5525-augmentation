@@ -31,7 +31,7 @@ def method_2(corpus, y, word_vectors):
         sample = corpus[i].copy()
         indices = pick_word_indices(sample, word_vectors)
         for index in indices:
-            new_sample = list(chain(sample[:index], [word_vectors.most_similar(sample[index])[0][0]], sample[index + 1:]))
+            new_sample = list(chain(sample[:index+1], [word_vectors.most_similar(sample[index])[0][0]], sample[index + 1:]))
         augmented_data.append(new_sample)
         augmented_y.append(y[i])
 
