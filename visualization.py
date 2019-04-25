@@ -76,6 +76,8 @@ def plot_region(x_bounds, y_bounds, points):
     ax = slice.plot.scatter("x", "y", s=35, figsize=(10, 8))
     for i, point in slice.iterrows():
         ax.text(point.x + 0.005, point.y + 0.005, point.word, fontsize=11)
+        
+    plt.savefig(str(x_bounds[0])+'_'+str(y_bounds[0])+'_region.png')
 
 def format_fn(tick_val, tick_pos):
     labels = ['Original', 'Method 1', 'Method 2', 'Method 3']

@@ -1,9 +1,5 @@
-import augmentation_methods as am
 import data_loader as dl
 import word_vectors as wv  
-import data_preprocessing as dp 
-import classifier as cl   
-import testing as t
 import visualization as vis 
 
 if __name__ == "__main__":
@@ -14,3 +10,13 @@ if __name__ == "__main__":
     # develop word vectors
     word_vectors = wv.get_word_vectors(orig_corpus)
     points = vis.visualize_vectors(word_vectors)
+    
+    inc = 7
+    for x in list(range(-52,30,inc)):
+        for y in list(range(-54,10,inc)):
+            x_bounds = [x, x+inc]
+            y_bounds = [y, y+inc]
+            try:
+                vis.plot_region(x_bounds, y_bounds, points)
+            except:
+                pass

@@ -10,6 +10,7 @@ def load_train_data():
     orig_corpus_sents = news.data
     orig_corpus = []
     stop_words = set(stopwords.words('english'))
+    stop_words = [re.sub("[^a-zA-Z]","", s) for s in stop_words]
     
     for i in range(len(orig_corpus_sents)):
         new_sent = re.sub("['\"-]","", orig_corpus_sents[i])
@@ -31,6 +32,7 @@ def load_test_data():
     orig_corpus_sents = news.data
     orig_corpus = []
     stop_words = set(stopwords.words('english'))
+    stop_words = [re.sub("[^a-zA-Z]","", s) for s in stop_words]
     
     for i in range(len(orig_corpus_sents)):
         new_sent = re.sub("['\"-]","", orig_corpus_sents[i])
