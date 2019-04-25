@@ -67,7 +67,7 @@ def pick_word_indices(sample, word_vectors):
             valid_indices.append(i)
     
     if len(valid_indices)>0:
-        amount_words_swapped = r.randint(1, max(len(valid_indices)-1, 1))
+        amount_words_swapped = r.randint(1, len(valid_indices))
         return r.sample(valid_indices, amount_words_swapped)
     else:
         return []
@@ -81,7 +81,7 @@ def pick_word_indices_verb_or_adjective(sample, word_vectors):
             valid_indices.append(i)
 
     if len(valid_indices)>0:
-        amount_words_swapped = r.randint(1, max(len(valid_indices)-1, 1))
+        amount_words_swapped = r.randint(1, len(valid_indices))
         return r.sample(valid_indices, amount_words_swapped)
     else:
         return []
